@@ -39,6 +39,7 @@ class _LiveTestState extends State<LiveTest> {
       //       return
       //     }
       // ),
+      //how to use one page orientation and listview
       ListView.builder(
         itemCount: 10,
           itemBuilder: (context,index){
