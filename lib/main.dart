@@ -1,77 +1,57 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: NewsFeed(),
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: LiveTest(),
     );
   }
 }
+class LiveTest extends StatefulWidget {
+  const LiveTest({Key? key}) : super(key: key);
 
-class NewsFeed extends StatelessWidget {
+  @override
+  State<LiveTest> createState() => _LiveTestState();
+}
+
+class _LiveTestState extends State<LiveTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('News Feed'),
-      ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return orientation == Orientation.portrait
-              ? VerticalNewsList()
-              : HorizontalNewsList();
-        },
+      appBar: AppBar(title: Text("News Feed",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold))),
+      body:
+      // OrientationBuilder(
+      //     builder: (context,index){
+      //       return
+      //     }
+      // ),
+      ListView.builder(
+        itemCount: 10,
+          itemBuilder: (context,index){
+            return Card(
+              child: ListTile(
+                leading: Image(image: NetworkImage("https://static-00.iconduck.com/assets.00/facebook-icon-512x512-seb542ju.png")),
+                title: Text("Hello"),
+              ),
+
+            );
+          }
       ),
     );
   }
 }
 
-class VerticalNewsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Card(
-          child: ListTile(
-            leading: Image.network('https://placekitten.com/80/80'),
-            title: Text('News Title $index'),
-            subtitle: Text('News Description $index'),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class HorizontalNewsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return Card(
-          child: Container(
-            width: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network('https://placekitten.com/200/120'),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('News Title $index'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
